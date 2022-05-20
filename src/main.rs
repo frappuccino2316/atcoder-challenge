@@ -1,3 +1,8 @@
+use proconio::input;
+
 fn main() {
-    println!("Hello, world!");
+    input! {
+        n: usize,
+    }
+    println!("{}", n);
 }
