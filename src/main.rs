@@ -2,10 +2,13 @@ use proconio::input;
 
 fn main() {
     input! {
-        a: i64,
+        a: String,
         b: i64,
-        c: i64,
-        s: String,
     }
-    println!("{} {}", a + b + c, s);
+    let r = if (a * b) % 2 == 0 {
+        String::from("Even")
+    } else {
+        String::from("Odd")
+    };
+    println!("{}", r);
 }
