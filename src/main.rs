@@ -2,7 +2,10 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: usize,
+        a: i64,
+        b: i64,
+        c: i64,
+        s: String,
     }
-    println!("{}", n);
+    println!("{} {}", a + b + c, s);
 }
