@@ -2,7 +2,7 @@ use proconio::input;
 
 fn main() {
     input! {
-        a: String,
+        a: i64,
         b: i64,
     }
     let r = if (a * b) % 2 == 0 {
