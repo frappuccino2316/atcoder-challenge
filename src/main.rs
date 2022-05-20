@@ -2,19 +2,20 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: usize,
-        a: [i64; n],
+        n: i64,
+        a: i64,
+        b: i64,
     }
 
-    let mut c = vec![];
-    for mut i in a {
-        let mut cnt = 0;
-        while i % 2 == 0 {
-            cnt += 1;
-            i /= 2;
+    let mut sum = 0;
+    for i in 1..=n {
+        let mut s = 0;
+        for j in i.to_string().chars() {
+            s += (j as i64) - 48;
         }
-        c.push(cnt);
+        if a <= s && s <= b {
+            sum += i;
+        }
     }
-
-    println!("{}", c.iter().min().unwrap());
+    println!("{}", sum);
 }
