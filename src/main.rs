@@ -2,27 +2,38 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: usize,
-        a: [usize; n],
+        h: usize,
+        w: usize,
+        a: [[usize; w]; h],
     }
 
-    let max = a.iter().max().unwrap();
-    let mut l = vec![0; max + 1];
+    // 行ごとの合計
+    let mut hs = vec![0; h];
+    // 列ごとの合計
+    let mut ws = vec![0; w];
 
-    for i in a {
-        l[i] += 1;
-    }
-
-    let mut ans = (n * (n - 1) * (n - 2)) / 6;
-
-    for j in l {
-        if j > 2 {
-            ans -= (j * (j - 1) * (j - 2)) / 6;
-        }
-        if j > 1 {
-            ans -= ((j * (j - 1)) / 2) * (n - j);
+    for (i, s) in a.iter().enumerate() {
+        for (j, e) in s.iter().enumerate() {
+            hs[i] += e;
+            ws[j] += e;
         }
     }
 
-    println!("{}", ans);
+    let mut r = vec![vec![0; w]; h];
+    for i in 0..h {
+        for j in 0..w {
+            r[i][j] = hs[i] + ws[j] - a[i][j];
+        }
+    }
+
+    for i in r {
+        for j in &i {
+            if *j == i.len() - 1 {
+                print!("{}", j);
+            } else {
+                print!("{} ", j);
+            }
+        }
+        println!();
+    }
 }
