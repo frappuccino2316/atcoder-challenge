@@ -2,38 +2,25 @@ use proconio::input;
 
 fn main() {
     input! {
-        h: usize,
-        w: usize,
-        a: [[usize; w]; h],
+        n: usize,
+        cp: [[usize; 2]; n],
+        q: usize,
+        lr: [[usize; 2]; q],
     }
 
-    // 行ごとの合計
-    let mut hs = vec![0; h];
-    // 列ごとの合計
-    let mut ws = vec![0; w];
+    for lri in lr {
+        let mut first_sum = 0;
+        let mut second_sum = 0;
+        let cp_block = &cp[lri[0] - 1..lri[1]];
 
-    for (i, s) in a.iter().enumerate() {
-        for (j, e) in s.iter().enumerate() {
-            hs[i] += e;
-            ws[j] += e;
-        }
-    }
-
-    let mut r = vec![vec![0; w]; h];
-    for i in 0..h {
-        for j in 0..w {
-            r[i][j] = hs[i] + ws[j] - a[i][j];
-        }
-    }
-
-    for i in r {
-        for j in &i {
-            if *j == i.len() - 1 {
-                print!("{}", j);
+        for cpi in cp_block {
+            if cpi[0] == 1 {
+                first_sum += cpi[1];
             } else {
-                print!("{} ", j);
+                second_sum += cpi[1];
             }
         }
-        println!();
+
+        println!("{} {}", first_sum, second_sum);
     }
 }
