@@ -13,7 +13,6 @@ fn main() {
         l[i] += 1;
     }
 
-    println!("{:?}", l);
     let mut ans = (n * (n - 1) * (n - 2)) / 6;
 
     for j in l {
