@@ -1,42 +1,27 @@
 use proconio::input;
+use proconio::marker::Chars;
+use std::cmp::max;
 
 fn main() {
     input! {
         n: usize,
+        s: [Chars; n],
     }
 
-    let mut s = Vec::new();
-    for _ in 0..n {
-        input! {
-            si: String,
+    let mut c = vec![vec![0_i32; 10]; 10];
+
+    for i in 0..n {
+        for j in 0..=9 {
+            c[(s[i][j] as usize) - 48][j] += 1;
         }
-        let b: Vec<char> = si.chars().collect();
-        s.push(b);
     }
 
-    let mut d = Vec::new();
+    let mut m = vec![0; 10];
     for i in 0..=9 {
-        let mut second = 0;
-        let mut max_index = 0;
-
-        for (j, v) in s.iter().enumerate() {
-            for (k, e) in v.iter().enumerate() {
-                if i == (*e as i32) - 48 && max_index < k {
-                    max_index = k;
-                } else if i == (*e as i32) - 48 && max_index == k && j != 0 {
-                    second += 10;
-                }
-            }
-        }
-        d.push(second + max_index);
-    }
-
-    let mut m = 100;
-    for i in d {
-        if i < m {
-            m = i;
+        for j in 0..=9 {
+            m[i] = max(m[i], 10 * ((c[i][j] as i32) - 1) + j as i32);
         }
     }
 
-    println!("{}", m);
+    println!("{}", m.iter().min().unwrap());
 }
