@@ -8,19 +8,23 @@ fn main() {
         lr: [[usize; 2]; q],
     }
 
-    for lri in lr {
-        let mut first_sum = 0;
-        let mut second_sum = 0;
-        let cp_block = &cp[lri[0] - 1..lri[1]];
-
-        for cpi in cp_block {
-            if cpi[0] == 1 {
-                first_sum += cpi[1];
-            } else {
-                second_sum += cpi[1];
-            }
+    let mut first_score = vec![0];
+    let mut second_score = vec![0];
+    for (i, cpi) in cp.iter().enumerate() {
+        if cpi[0] == 1 {
+            first_score.push(cpi[1] + first_score[i]);
+            second_score.push(second_score[i]);
+        } else {
+            first_score.push(first_score[i]);
+            second_score.push(cpi[1] + second_score[i]);
         }
+    }
 
-        println!("{} {}", first_sum, second_sum);
+    for j in lr {
+        println!(
+            "{} {}",
+            first_score[j[1]] - first_score[j[0] - 1],
+            second_score[j[1]] - second_score[j[0] - 1]
+        )
     }
 }
