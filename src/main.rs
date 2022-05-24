@@ -1,18 +1,14 @@
-use std::collections::HashSet;
-
 use proconio::input;
 
 fn main() {
     input! {
-        n: i64,
-        s: [String; n],
+        h: f64,
+        w: f64,
     }
 
-    let mut h = HashSet::new();
-    for (i, v) in s.iter().enumerate() {
-        if !h.contains(v) {
-            println!("{}", i + 1);
-            h.insert(v);
-        }
+    if h == 1.0 || w == 1.0 {
+        println!("{}", h * w);
+    } else {
+        println!("{}", (h / 2.0).ceil() * (w / 2.0).ceil());
     }
 }
