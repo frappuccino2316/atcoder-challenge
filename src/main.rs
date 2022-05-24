@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use proconio::input;
 
 fn main() {
@@ -6,12 +8,11 @@ fn main() {
         s: [String; n],
     }
 
-    let mut answer = Vec::new();
-
-    for (i, e) in s.iter().enumerate() {
-        if answer.is_empty() || answer.iter().all(|x| *x != e) {
+    let mut h = HashSet::new();
+    for (i, v) in s.iter().enumerate() {
+        if !h.contains(v) {
             println!("{}", i + 1);
-            answer.push(e);
+            h.insert(v);
         }
     }
 }
