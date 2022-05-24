@@ -2,29 +2,18 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: usize,
-        cp: [[usize; 2]; n],
-        q: usize,
-        lr: [[usize; 2]; q],
+        n: i64,
+        k: i64,
+        a: [i64; n],
+        b: [i64; n],
     }
 
-    let mut first_score = vec![0];
-    let mut second_score = vec![0];
-    for (i, cpi) in cp.iter().enumerate() {
-        if cpi[0] == 1 {
-            first_score.push(cpi[1] + first_score[i]);
-            second_score.push(second_score[i]);
-        } else {
-            first_score.push(first_score[i]);
-            second_score.push(cpi[1] + second_score[i]);
-        }
-    }
+    let sa: i64 = a.iter().sum();
+    let sb: i64 = b.iter().sum();
 
-    for j in lr {
-        println!(
-            "{} {}",
-            first_score[j[1]] - first_score[j[0] - 1],
-            second_score[j[1]] - second_score[j[0] - 1]
-        )
+    if (sa + k) % 2 == sb % 2 && (sb - sa).abs() <= k {
+        println!("Yes");
+    } else {
+        println!("No");
     }
 }
