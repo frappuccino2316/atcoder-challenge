@@ -27,7 +27,6 @@ fn main() {
 
         // 9進数に変換して、n_nineに1の位からのVecとして格納
         loop {
-            println!("loop");
             let x = n_ten % 9;
             n_nine.push(x);
             n_ten /= 9;
