@@ -1,14 +1,21 @@
 use proconio::input;
+use std::collections::VecDeque;
 
 fn main() {
     input! {
-        h: f64,
-        w: f64,
+        q: usize,
+        a: [[usize; 2]; q],
     }
 
-    if h == 1.0 || w == 1.0 {
-        println!("{}", h * w);
-    } else {
-        println!("{}", (h / 2.0).ceil() * (w / 2.0).ceil());
+    let mut v = VecDeque::new();
+
+    for i in a {
+        match i[0] {
+            1 => v.push_front(i[1]),
+            2 => v.push_back(i[1]),
+            3 => println!("{}", v[i[1] - 1]),
+            _ => (),
+        }
+        println!("v: {:?}", v);
     }
 }
