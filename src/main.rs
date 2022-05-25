@@ -9,19 +9,16 @@ fn main() {
 
     let mut l = vec![vec![]; n + 1];
     for abi in ab {
-        l[abi[0]].push(abi[1]);
-        l[abi[1]].push(abi[0]);
+        if abi[0] > abi[1] {
+            l[abi[0]].push(abi[1])
+        } else {
+            l[abi[1]].push(abi[0]);
+        }
     }
 
     let mut cnt = 0;
-    for (m, v) in l.iter().enumerate() {
-        let mut over_cnt = 0;
-        for i in v {
-            if *i < m {
-                over_cnt += 1;
-            }
-        }
-        if over_cnt == 1 {
+    for m in l {
+        if m.len() == 1 {
             cnt += 1;
         }
     }
