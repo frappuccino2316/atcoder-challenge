@@ -1,51 +1,35 @@
-use proconio::input;
+use proconio::{fastout, input};
+use std::cmp::min;
 
-// 002 - Encyclopedia of Parentheses（★3）
-// https://atcoder.jp/contests/typical90/tasks/typical90_b
-//
-// カッコ列が正しい条件
-// - 1文字目が「(」
-// - 常に「(」が「)」より多い
-// - 全部の「(」と「)」の数が等しい
+// 007 - CP Classes
 
+#[fastout]
 fn main() {
     input! {
-        n: usize,
+        n: isize,
+        mut a: [isize; n],
+        q: isize,
+        b: [isize; q],
     }
 
-    for bit in 0..(1 << n) {
-        let mut candidate = String::from("");
+    a.push(std::isize::MIN);
+    a.push(std::isize::MAX);
+    a.sort_unstable();
+    a.dedup();
 
-        let mut i = (n - 1) as isize;
-        while i >= 0 {
-            if bit & (1 << i) == 0 {
-                candidate += "(";
-            } else {
-                candidate += ")";
+    for i in b {
+        match a.binary_search(&i) {
+            Ok(_) => println!("0"),
+            Err(idx) => {
+                if idx == 0 {
+                    println!("{}", (a[0] - i).abs());
+                } else if idx == a.len() - 1 {
+                    println!("{}", (a[idx - 1] - i).abs());
+                } else {
+                    let r = min((a[idx] - i).abs(), (a[idx - 1] - i).abs());
+                    println!("{}", r);
+                }
             }
-            i -= 1;
-        }
-
-        if check(&candidate) {
-            println!("{}", candidate);
         }
     }
-}
-
-fn check(s: &str) -> bool {
-    let mut depth = 0;
-    for j in s.chars() {
-        if j == '(' {
-            depth += 1;
-        } else {
-            depth -= 1;
-        }
-        if depth < 0 {
-            return false;
-        }
-    }
-    if depth == 0 {
-        return true;
-    }
-    false
 }
