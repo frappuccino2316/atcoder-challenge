@@ -1,22 +1,35 @@
-use proconio::{fastout, input};
+use proconio::input;
+use std::cmp::min;
 
-// 014 - We Used to Sing a Song Together
-// https://atcoder.jp/contests/typical90/tasks/typical90_n
+// 016 - Minimum Coins
+// https://atcoder.jp/contests/typical90/tasks/typical90_p
 
-#[fastout]
 fn main() {
     input! {
-        n: usize,
-        mut a: [i64; n],
-        mut b: [i64; n],
+        n: i64,
+        a: i64,
+        b: i64,
+        c: i64,
     }
 
-    a.sort_unstable();
-    b.sort_unstable();
+    let mut minimum = std::i64::MAX;
+    let limit = 9999;
 
-    let mut minimum = 0;
-    for i in 0..n {
-        minimum += (a[i] - b[i]).abs();
+    let mut x = 0;
+    while x <= limit {
+        let mut y = 0;
+        while x + y <= limit {
+            let remaining = n - (a * x) - (b * y);
+            if remaining % c != 0 || remaining < 0 {
+                y += 1;
+                continue;
+            }
+            let z = remaining / c;
+            minimum = min(minimum, x + y + z);
+
+            y += 1;
+        }
+        x += 1;
     }
 
     println!("{}", minimum);
