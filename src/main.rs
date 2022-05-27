@@ -1,35 +1,23 @@
 use proconio::{fastout, input};
-use std::cmp::min;
 
-// 007 - CP Classes
+// 014 - We Used to Sing a Song Together
+// https://atcoder.jp/contests/typical90/tasks/typical90_n
 
 #[fastout]
 fn main() {
     input! {
-        n: isize,
-        mut a: [isize; n],
-        q: isize,
-        b: [isize; q],
+        n: usize,
+        mut a: [i64; n],
+        mut b: [i64; n],
     }
 
-    a.push(std::isize::MIN);
-    a.push(std::isize::MAX);
     a.sort_unstable();
-    a.dedup();
+    b.sort_unstable();
 
-    for i in b {
-        match a.binary_search(&i) {
-            Ok(_) => println!("0"),
-            Err(idx) => {
-                if idx == 0 {
-                    println!("{}", (a[0] - i).abs());
-                } else if idx == a.len() - 1 {
-                    println!("{}", (a[idx - 1] - i).abs());
-                } else {
-                    let r = min((a[idx] - i).abs(), (a[idx - 1] - i).abs());
-                    println!("{}", r);
-                }
-            }
-        }
+    let mut minimum = 0;
+    for i in 0..n {
+        minimum += (a[i] - b[i]).abs();
     }
+
+    println!("{}", minimum);
 }
